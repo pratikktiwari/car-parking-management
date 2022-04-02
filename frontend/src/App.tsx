@@ -1,3 +1,4 @@
+import { initializeIcons } from "@fluentui/react";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
@@ -5,6 +6,10 @@ import HomePage from "./Components/HomePage/HomePage";
 import Login from "./Components/Login/Login";
 import "./cssReset.css";
 class App extends React.Component {
+  constructor(props: any) {
+    super(props);
+    initializeIcons();
+  }
   render() {
     return (
       <Router>
