@@ -1,7 +1,9 @@
 import { createTheme, mergeStyles } from "@fluentui/react";
 import { IDropdownOption } from "@fluentui/react/lib/components/Dropdown";
 import { ITextFieldStyles } from "@fluentui/react/lib/components/TextField";
-
+/**
+ * Park vehicle props and state
+ */
 export interface IParkVehicleProps {}
 export interface IParkVehicleState {
   selectedCity: IDropdownOption<any> | undefined;
@@ -10,16 +12,31 @@ export interface IParkVehicleState {
   ownerName: string;
   ownerAddress: string;
 }
+/**
+ * Vehicle status state and props
+ */
+export interface IVehicleStatusProps {}
+export interface IVehicleStatusState {
+  registrationNumber: string;
+}
+/**
+ * Dashboard right state and props
+ */
 export interface IDashboardRightProps {
   currentComponent: ComponentTypes;
 }
 export interface IDashboardRightState {}
 
+/**
+ * Dashboard state and props
+ */
 export interface IDashboardProps {}
 export interface IDashboardState {
   currentComponent: ComponentTypes;
 }
-
+/**
+ * Dashbiard right
+ */
 export interface IDashboardLeftProps {
   setCurrentComponent: (componentName: ComponentTypes) => void;
 }
