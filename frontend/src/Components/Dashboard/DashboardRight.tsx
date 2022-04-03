@@ -8,6 +8,7 @@ import {
 } from "./Dashboard.types";
 import ParkVehicle from "./ParkVehicle";
 import ReleaseVehicle from "./ReleaseVehicle";
+import ServiceAreas from "./ServiceAreas";
 import VehicleStatus from "./VehicleStatus";
 class DashboardRight extends React.Component<
   IDashboardRightProps,
@@ -28,7 +29,7 @@ class DashboardRight extends React.Component<
       case ComponentTypes.PayUserBill:
         return <div>Pay user bill</div>;
       case ComponentTypes.ServiceAreas:
-        return <div>Service Areas</div>;
+        return <ServiceAreas />;
       case ComponentTypes.ParkingMap:
         return <div>Parking map</div>;
       default:

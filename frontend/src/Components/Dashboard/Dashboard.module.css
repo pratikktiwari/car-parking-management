@@ -74,3 +74,16 @@
 .shimmerWrapper {
   padding: 5px;
 }
+.areaContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+.singleArea {
+  min-width: 300px;
+}
+.singleArea ul {
+  margin-top: 20px;
+}
+.singleArea ul li {
+  margin-bottom: 10px;
+}

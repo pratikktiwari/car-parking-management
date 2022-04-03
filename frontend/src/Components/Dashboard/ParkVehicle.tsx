@@ -4,10 +4,10 @@ import {
   Dropdown,
   DropdownMenuItemType,
   IDropdownOption,
-  IDropdownStyles,
 } from "@fluentui/react/lib/Dropdown";
 import {
   customThemeForShimmer,
+  dropdownStyles,
   IParkVehicleProps,
   IParkVehicleState,
   TextFieldStates,
@@ -17,8 +17,6 @@ import {
 import { TextField } from "@fluentui/react/lib/TextField";
 import { PrimaryButton } from "@fluentui/react/lib/Button";
 import { Shimmer } from "@fluentui/react";
-
-const dropdownStyles: Partial<IDropdownStyles> = { dropdown: { width: 300 } };
 
 class ParkVehicle extends React.Component<
   IParkVehicleProps,

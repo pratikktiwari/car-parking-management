@@ -94,7 +94,7 @@ class DashboardLeft extends React.Component<
           >
             Account Setting
           </div>
-          <div
+          {/* <div
             className={classNames(
               style.leftNavItem,
               currentComponent === ComponentTypes.PayUserBill
@@ -106,7 +106,7 @@ class DashboardLeft extends React.Component<
             }}
           >
             Pay a user bill
-          </div>
+          </div> */}
           <div
             className={classNames(
               style.leftNavItem,

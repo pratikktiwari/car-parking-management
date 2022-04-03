@@ -1,6 +1,18 @@
 import { createTheme, mergeStyles } from "@fluentui/react";
-import { IDropdownOption } from "@fluentui/react/lib/components/Dropdown";
+import {
+  IDropdownOption,
+  IDropdownStyles,
+} from "@fluentui/react/lib/components/Dropdown";
 import { ITextFieldStyles } from "@fluentui/react/lib/components/TextField";
+
+/**
+ * Service areas
+ */
+export interface IServiceAreasProps {}
+export interface IServiceAreasState {
+  areaName: string;
+  selectedCity: IDropdownOption<any> | undefined;
+}
 /**
  * Park vehicle props and state
  */
@@ -100,3 +112,6 @@ export const customThemeForShimmer = createTheme({
     white: "#0078D4",
   },
 });
+export const dropdownStyles: Partial<IDropdownStyles> = {
+  dropdown: { width: 300 },
+};
