@@ -5,21 +5,44 @@ import {
 } from "@fluentui/react/lib/components/Dropdown";
 import { ITextFieldStyles } from "@fluentui/react/lib/components/TextField";
 
+export enum Status {
+  NotStarted = 0,
+  Started = 1,
+  Completed = 2,
+  Error = 3,
+}
+
+export interface IParkingData {
+  parkingData: ParkingCity[];
+  status: Status;
+}
+
+export interface ParkingCity {
+  [city: string]: IParkingArea[];
+}
+export interface IParkingArea {
+  [area: string]: IParkingSlot[];
+}
+export interface IParkingSlot {
+  vehicleClass: VehicleClass;
+  registrationNumber: string;
+}
 /**
  * Service areas
  */
 export interface IServiceAreasProps {}
 export interface IServiceAreasState {
   areaName: string;
-  selectedCity: IDropdownOption<any> | undefined;
+  selectedCity: IDropdownOption<string> | undefined;
 }
 /**
  * Park vehicle props and state
  */
 export interface IParkVehicleProps {}
 export interface IParkVehicleState {
-  selectedCity: IDropdownOption<any> | undefined;
-  selectedParkingArea: IDropdownOption<any> | undefined;
+  selectedCity: IDropdownOption<string> | undefined;
+  selectedParkingArea: IDropdownOption<string> | undefined;
+  selectedVehicleClass: IDropdownOption<string> | undefined;
   registrationNumber: string;
   ownerName: string;
   ownerAddress: string;
@@ -88,6 +111,14 @@ export enum TextFieldStates {
   userName = "userName",
   newPassword = "newPassword",
   repeatPassword = "repeatPassword",
+}
+export enum VehicleClass {
+  Bike = "Bike",
+  Car = "Car",
+  SUV = "SUV",
+  PickupTruck = "Pickup truck",
+  Bus = "Bus",
+  Truck = "Truck",
 }
 export const textFieldStyles: Partial<ITextFieldStyles> = {
   fieldGroup: { width: 300 },

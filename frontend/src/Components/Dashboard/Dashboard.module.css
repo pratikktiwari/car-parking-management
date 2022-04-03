@@ -87,3 +87,43 @@
 .singleArea ul li {
   margin-bottom: 10px;
 }
+.mapContainer h3 {
+  font-size: 18px;
+}
+.mapListTopContainer {
+  margin-top: 20px;
+}
+.mapListTopContainer h4 {
+  font-size: 16px;
+}
+.cityContainer {
+  margin-top: 35px;
+}
+.cityContainer h5 {
+  font-size: 14px;
+}
+.mainMapContent {
+  color: #1a2226;
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.singleParking {
+  border: 2px solid black;
+  width: 150px;
+  text-align: center;
+  padding: 8px 5px;
+}
+.singleParking p {
+  margin-top: 5px;
+}
+.parkingImage {
+  max-width: 100%;
+  height: 80px;
+  overflow: hidden;
+  margin: auto;
+}
+.parkingImage img {
+  height: 80px;
+  max-width: 95%;
+}

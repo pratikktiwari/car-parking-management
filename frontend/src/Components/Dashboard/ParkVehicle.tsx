@@ -25,6 +25,7 @@ class ParkVehicle extends React.Component<
   state = {
     selectedCity: undefined,
     selectedParkingArea: undefined,
+    selectedVehicleClass: undefined,
     registrationNumber: "",
     ownerName: "",
     ownerAddress: "",
@@ -46,6 +47,15 @@ class ParkVehicle extends React.Component<
   ): void => {
     this.setState({
       selectedParkingArea: item,
+    });
+  };
+  onVehicleClassChange = (
+    event: React.FormEvent<HTMLDivElement>,
+    item: IDropdownOption<any> | undefined,
+    index?: number | undefined
+  ): void => {
+    this.setState({
+      selectedVehicleClass: item,
     });
   };
   handleFieldChange = (
@@ -102,6 +112,14 @@ class ParkVehicle extends React.Component<
       { key: "jalandhar_law_gate", text: "LPU Law Gate" },
       { key: "jalandhar_bus_stand", text: "Bus stand parking place" },
     ];
+    const vehicleClasses = [
+      { key: "bike", text: "Bike" },
+      { key: "car", text: "Car" },
+      { key: "suv", text: "SUV" },
+      { key: "small_pickup", text: "Pickup truck" },
+      { key: "bus", text: "Bus" },
+      { key: "truck", text: "Truck" },
+    ];
     const {
       selectedCity,
       selectedParkingArea,
@@ -109,6 +127,7 @@ class ParkVehicle extends React.Component<
       ownerName,
       registrationNumber,
       parkingDuration,
+      selectedVehicleClass,
     } = this.state;
     return (
       <div>
@@ -135,6 +154,19 @@ class ParkVehicle extends React.Component<
               onChange={this.onParkingPlaceChange}
               placeholder="Select a parking area"
               options={parkingJalandharList}
+              styles={dropdownStyles}
+            />
+          </div>
+          <div className={style.singleField}>
+            <Dropdown
+              label="Vehicle Class"
+              selectedKey={
+                // @ts-ignore
+                selectedVehicleClass ? selectedVehicleClass?.key : undefined
+              }
+              onChange={this.onVehicleClassChange}
+              placeholder="Select a vehicle type"
+              options={vehicleClasses}
               styles={dropdownStyles}
             />
           </div>
