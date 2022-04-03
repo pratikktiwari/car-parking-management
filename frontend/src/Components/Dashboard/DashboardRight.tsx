@@ -1,4 +1,5 @@
 import React from "react";
+import AccountSetting from "./AccountSetting";
 import style from "./Dashboard.module.css";
 import {
   ComponentTypes,
@@ -23,7 +24,7 @@ class DashboardRight extends React.Component<
       case ComponentTypes.ReleaseVehicle:
         return <ReleaseVehicle />;
       case ComponentTypes.AccountSetting:
-        return <div>Account setting</div>;
+        return <AccountSetting />;
       case ComponentTypes.PayUserBill:
         return <div>Pay user bill</div>;
       case ComponentTypes.ServiceAreas:
