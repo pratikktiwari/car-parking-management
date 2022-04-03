@@ -13,6 +13,7 @@ import {
   IDashboardLeftProps,
   IDashboardLeftState,
 } from "./Dashboard.types";
+import classNames from "classnames";
 class DashboardLeft extends React.Component<
   IDashboardLeftProps,
   IDashboardLeftState
@@ -27,7 +28,7 @@ class DashboardLeft extends React.Component<
       optionalText: "Available",
       showSecondaryText: true,
     };
-    const { setCurrentComponent } = this.props;
+    const { setCurrentComponent, currentComponent } = this.props;
     return (
       <div className={style.left}>
         <div className={style.personaContainer}>
@@ -42,7 +43,12 @@ class DashboardLeft extends React.Component<
         <div>
           <div className={style.mainNavigationIndicator}>Main Navigation</div>
           <div
-            className={style.leftNavItem}
+            className={classNames(
+              style.leftNavItem,
+              currentComponent === ComponentTypes.ParkNewVehicle
+                ? style.activeNavItem
+                : ""
+            )}
             onClick={() => {
               setCurrentComponent(ComponentTypes.ParkNewVehicle);
             }}
@@ -50,7 +56,12 @@ class DashboardLeft extends React.Component<
             Park a new vehicle
           </div>
           <div
-            className={style.leftNavItem}
+            className={classNames(
+              style.leftNavItem,
+              currentComponent === ComponentTypes.CheckVehicleStatus
+                ? style.activeNavItem
+                : ""
+            )}
             onClick={() => {
               setCurrentComponent(ComponentTypes.CheckVehicleStatus);
             }}
@@ -58,7 +69,12 @@ class DashboardLeft extends React.Component<
             Check vehicle status
           </div>
           <div
-            className={style.leftNavItem}
+            className={classNames(
+              style.leftNavItem,
+              currentComponent === ComponentTypes.ReleaseVehicle
+                ? style.activeNavItem
+                : ""
+            )}
             onClick={() => {
               setCurrentComponent(ComponentTypes.ReleaseVehicle);
             }}
@@ -66,7 +82,12 @@ class DashboardLeft extends React.Component<
             Release a vehicle
           </div>
           <div
-            className={style.leftNavItem}
+            className={classNames(
+              style.leftNavItem,
+              currentComponent === ComponentTypes.AccountSetting
+                ? style.activeNavItem
+                : ""
+            )}
             onClick={() => {
               setCurrentComponent(ComponentTypes.AccountSetting);
             }}
@@ -74,7 +95,12 @@ class DashboardLeft extends React.Component<
             Account Setting
           </div>
           <div
-            className={style.leftNavItem}
+            className={classNames(
+              style.leftNavItem,
+              currentComponent === ComponentTypes.PayUserBill
+                ? style.activeNavItem
+                : ""
+            )}
             onClick={() => {
               setCurrentComponent(ComponentTypes.PayUserBill);
             }}
@@ -82,7 +108,12 @@ class DashboardLeft extends React.Component<
             Pay a user bill
           </div>
           <div
-            className={style.leftNavItem}
+            className={classNames(
+              style.leftNavItem,
+              currentComponent === ComponentTypes.ServiceAreas
+                ? style.activeNavItem
+                : ""
+            )}
             onClick={() => {
               setCurrentComponent(ComponentTypes.ServiceAreas);
             }}
@@ -90,7 +121,12 @@ class DashboardLeft extends React.Component<
             Service Areas
           </div>
           <div
-            className={style.leftNavItem}
+            className={classNames(
+              style.leftNavItem,
+              currentComponent === ComponentTypes.ParkingMap
+                ? style.activeNavItem
+                : ""
+            )}
             onClick={() => {
               setCurrentComponent(ComponentTypes.ParkingMap);
             }}

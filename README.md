@@ -7,4 +7,6 @@ Frontend
 - Each admin would be for a particular area
 - There can be multiple parking lots
 - Vehicles can be parked at empty spaces
-- Ve
+- Vehicle map
+
+https://jubilant-guide-foidl.ondigitalocean.app/

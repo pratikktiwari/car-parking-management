@@ -35,6 +35,9 @@
   font-weight: 100;
   margin-top: 20px;
 }
+.activeNavItem {
+  background-color: black;
+}
 .personaContainer {
   margin-top: 10px;
   padding: 20px;

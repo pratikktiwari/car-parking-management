@@ -18,7 +18,10 @@ class Dashboard extends React.Component {
     const { currentComponent } = this.state;
     return (
       <div className={style.container}>
-        <DashboardLeft setCurrentComponent={this.setCurrentComponent} />
+        <DashboardLeft
+          setCurrentComponent={this.setCurrentComponent}
+          currentComponent={currentComponent}
+        />
         <DashboardRight currentComponent={currentComponent} />
       </div>
     );

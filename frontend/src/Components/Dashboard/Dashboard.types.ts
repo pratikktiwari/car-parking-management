@@ -47,6 +47,7 @@ export interface IDashboardState {
  */
 export interface IDashboardLeftProps {
   setCurrentComponent: (componentName: ComponentTypes) => void;
+  currentComponent: ComponentTypes;
 }
 export interface IDashboardLeftState {}
 
