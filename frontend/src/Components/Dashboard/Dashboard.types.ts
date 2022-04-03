@@ -11,12 +11,20 @@ export interface IParkVehicleState {
   registrationNumber: string;
   ownerName: string;
   ownerAddress: string;
+  parkingDuration: string;
 }
 /**
  * Vehicle status state and props
  */
 export interface IVehicleStatusProps {}
 export interface IVehicleStatusState {
+  registrationNumber: string;
+}
+/**
+ * Vehicle release state and props
+ */
+export interface IReleaseVehicleProps {}
+export interface IReleaseVehicleState {
   registrationNumber: string;
 }
 /**
@@ -55,6 +63,7 @@ export enum TextFieldStates {
   registrationNumber = "registrationNumber",
   ownerName = "ownerName",
   ownerAddress = "ownerAddress",
+  parkingDuration = "parkingDuration",
 }
 export const textFieldStyles: Partial<ITextFieldStyles> = {
   fieldGroup: { width: 300 },

@@ -6,6 +6,7 @@ import {
   IDashboardRightState,
 } from "./Dashboard.types";
 import ParkVehicle from "./ParkVehicle";
+import ReleaseVehicle from "./ReleaseVehicle";
 import VehicleStatus from "./VehicleStatus";
 class DashboardRight extends React.Component<
   IDashboardRightProps,
@@ -20,7 +21,7 @@ class DashboardRight extends React.Component<
       case ComponentTypes.CheckVehicleStatus:
         return <VehicleStatus />;
       case ComponentTypes.ReleaseVehicle:
-        return <div>Release Vehicle</div>;
+        return <ReleaseVehicle />;
       case ComponentTypes.AccountSetting:
         return <div>Account setting</div>;
       case ComponentTypes.PayUserBill:

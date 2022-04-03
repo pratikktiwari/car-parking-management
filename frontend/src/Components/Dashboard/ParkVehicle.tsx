@@ -30,6 +30,7 @@ class ParkVehicle extends React.Component<
     registrationNumber: "",
     ownerName: "",
     ownerAddress: "",
+    parkingDuration: "",
   };
   onCityChange = (
     event: React.FormEvent<HTMLDivElement>,
@@ -63,6 +64,12 @@ class ParkVehicle extends React.Component<
           break;
         case TextFieldStates.ownerAddress:
           this.setState({ ownerAddress: newValue });
+          break;
+        case TextFieldStates.parkingDuration:
+          const val = Number(newValue);
+          if (newValue.length === 0 || (!isNaN(val) && val > 0 && val < 12)) {
+            this.setState({ parkingDuration: newValue });
+          }
           break;
         default:
           break;
@@ -103,6 +110,7 @@ class ParkVehicle extends React.Component<
       ownerAddress,
       ownerName,
       registrationNumber,
+      parkingDuration,
     } = this.state;
     return (
       <div>
@@ -139,6 +147,15 @@ class ParkVehicle extends React.Component<
               onChange={this.handleFieldChange}
               styles={textFieldStyles}
               name={TextFieldStates.registrationNumber}
+            />
+          </div>
+          <div className={style.singleField}>
+            <TextField
+              label="Parking duration"
+              value={parkingDuration}
+              onChange={this.handleFieldChange}
+              styles={textFieldStyles}
+              name={TextFieldStates.parkingDuration}
             />
           </div>
           <div className={style.singleField}>
