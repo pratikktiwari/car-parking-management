@@ -18,12 +18,15 @@ export interface IParkingData {
 }
 
 export interface ParkingCity {
-  [city: string]: IParkingArea[];
+  city: string;
+  areaList: IParkingArea[];
 }
 export interface IParkingArea {
-  [area: string]: IParkingSlot[];
+  areaName: string;
+  parkingList: IParkingSlot[];
 }
 export interface IParkingSlot {
+  index: number;
   vehicleClass: VehicleClass;
   registrationNumber: string;
 }
@@ -119,6 +122,7 @@ export enum VehicleClass {
   PickupTruck = "Pickup truck",
   Bus = "Bus",
   Truck = "Truck",
+  None = "None",
 }
 export const textFieldStyles: Partial<ITextFieldStyles> = {
   fieldGroup: { width: 300 },
