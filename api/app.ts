@@ -12,11 +12,9 @@ const { v4: uuidv4 } = require("uuid");
 const sessions = require("express-session");
 
 const router = require("./router.route");
-const csrf = require("csurf");
+
 const xss = require("xss-clean");
-const rateLimit = require("express-rate-limit");
 const path = require("path");
-const helmet = require("helmet");
 const cors = require("cors");
 
 const app = express();
@@ -34,6 +32,7 @@ app.use(
     resave: false,
   })
 );
+
 app.use(cors);
 app.use(express.json({ limit: "10kb" }));
 app.use(cookieParser());
