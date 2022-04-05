@@ -2,7 +2,7 @@ import React from "react";
 import style from "./Dashboard.module.css";
 
 import bike1 from "../../images/bike1.png";
-import parking from "../../images/parking.png";
+// import parking from "../../images/parking.png";
 import car from "../../images/Tuning-Car-PNG-Photo.png";
 import suv from "../../images/suv.png";
 import bus from "../../images/bus.png";
@@ -399,17 +399,3 @@ const sampleParkingData: IParkingData = {
     },
   ],
 };
-// const parkingSlots:IParkingSlot[] = [
-//   {
-//     "vehicleClass": VehicleClass.SUV,
-//     "registrationNumber": "123-ABC-AHG"
-//   },
-//   {
-//     "vehicleClass": VehicleClass.Car,
-//     "registrationNumber": "JH-ABC-AHG"
-//   },
-// ];
-// const parkingAreas: IParkingArea[] = [
-//   {"LPU Law Gate": parkingSlots},
-//   {"LPU Mall": parkingSlots},
-// ]

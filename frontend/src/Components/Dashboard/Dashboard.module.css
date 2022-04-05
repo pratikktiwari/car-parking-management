@@ -19,6 +19,7 @@
   background-color: #ecf0f5;
   padding: 30px;
   box-sizing: border-box;
+  min-height: 100vh;
 }
 .left * {
   color: #fff;
