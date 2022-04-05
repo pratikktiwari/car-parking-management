@@ -5,5 +5,6 @@ CREATE TABLE parkingStatus (
   areaId INT,
   FOREIGN KEY (areaId) REFERENCES serviceArea(areaId),
   parkingRecordId INT DEFAULT 1,
+  status VARCHAR(256) DEFAULT "parked"; -- parked and released
   FOREIGN KEY (parkingRecordId) REFERENCES parkingRecords(parkingRecordId)
 );
