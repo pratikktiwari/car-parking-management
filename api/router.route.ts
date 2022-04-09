@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { login } from "./controller";
+import { checkStatus, login, parkVehicle } from "./controller";
 
 const router = Router();
 
 router.post("/login", login);
+
+router.post("/park", parkVehicle);
+
+router.post("/checkStatus", checkStatus);
 
 module.exports = router;
