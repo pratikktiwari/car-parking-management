@@ -10,6 +10,7 @@ import {
   dropdownStyles,
   IParkVehicleProps,
   IParkVehicleState,
+  Status,
   TextFieldStates,
   textFieldStyles,
   wrapperClass,
@@ -17,6 +18,7 @@ import {
 import { TextField } from "@fluentui/react/lib/TextField";
 import { PrimaryButton } from "@fluentui/react/lib/Button";
 import { Shimmer } from "@fluentui/react";
+import axios from "axios";
 
 class ParkVehicle extends React.Component<
   IParkVehicleProps,
@@ -26,10 +28,12 @@ class ParkVehicle extends React.Component<
     selectedCity: undefined,
     selectedParkingArea: undefined,
     selectedVehicleClass: undefined,
-    registrationNumber: "",
-    ownerName: "",
-    ownerAddress: "",
-    parkingDuration: "",
+    registrationNumber: "JH-123-123-PQ",
+    ownerName: "Pratik K Tiwari",
+    ownerAddress: "Garhwa",
+    parkingDuration: "5",
+    submitStatus: Status.NotStarted,
+    parkingId: 0,
   };
   onCityChange = (
     event: React.FormEvent<HTMLDivElement>,
@@ -85,6 +89,67 @@ class ParkVehicle extends React.Component<
     }
   };
   handleButtonClick = () => {
+    const {
+      selectedCity,
+      selectedParkingArea,
+      selectedVehicleClass,
+      registrationNumber,
+      ownerName,
+      ownerAddress,
+      parkingDuration,
+    } = this.state;
+    if (
+      selectedCity &&
+      selectedVehicleClass &&
+      selectedParkingArea &&
+      registrationNumber.length > 4 &&
+      ownerName.length > 4 &&
+      ownerAddress.length > 4 &&
+      parkingDuration
+    ) {
+      //@ts-ignore
+      const city = selectedCity.text;
+      //@ts-ignore
+      const area = selectedParkingArea.text;
+      //@ts-ignore
+      const vehicleClass = selectedVehicleClass.text;
+      this.setState({
+        submitStatus: Status.Started,
+      });
+      axios
+        .post("/api/park", {
+          cityName: city,
+          areaName: area,
+          vehicleClass: vehicleClass,
+          registrationNumber: registrationNumber,
+          parkingDuration: parkingDuration,
+          ownerName: ownerName,
+          ownerAddress: ownerAddress,
+        })
+        .then((data: any) => {
+          console.log(data);
+          this.setState({
+            submitStatus: Status.Completed,
+            parkingId: data?.data?.data?.insertId,
+
+            selectedCity: undefined,
+            selectedParkingArea: undefined,
+            selectedVehicleClass: undefined,
+
+            registrationNumber: "",
+            ownerName: "",
+            ownerAddress: "",
+            parkingDuration: "",
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          this.setState({
+            submitStatus: Status.Error,
+          });
+        });
+    }
+
     console.log("clicked");
   };
   render(): React.ReactNode {
@@ -105,12 +170,15 @@ class ParkVehicle extends React.Component<
         itemType: DropdownMenuItemType.Header,
       },
       { key: "ranchi", text: "Ranchi" },
-      { key: "devghar", text: "Devghar" },
+      // { key: "devghar", text: "Devghar" },
     ];
     const parkingJalandharList = [
-      { key: "jalandhar_lpu", text: "LPU Gate" },
+      { key: "jalandhar_lpu", text: "LPU Mall" },
       { key: "jalandhar_law_gate", text: "LPU Law Gate" },
-      { key: "jalandhar_bus_stand", text: "Bus stand parking place" },
+      { key: "chandigarh_1", text: "Elante Mall" },
+      { key: "amritsar_1", text: "Golden Temple Parking Area" },
+      { key: "ranchi_1", text: "Lalpur" },
+      { key: "ranchi_2", text: "SAIL Township" },
     ];
     const vehicleClasses = [
       { key: "bike", text: "Bike" },
@@ -128,6 +196,8 @@ class ParkVehicle extends React.Component<
       registrationNumber,
       parkingDuration,
       selectedVehicleClass,
+      submitStatus,
+      parkingId,
     } = this.state;
     return (
       <div>
@@ -221,30 +291,37 @@ class ParkVehicle extends React.Component<
             submitted.
           </p>
           <div className={style.detailsWrapper}>
-            <div className={style.shimmerWrapper}>
-              <div className={wrapperClass}>
-                <Shimmer
-                  shimmerColors={{
-                    shimmer: customThemeForShimmer.palette.themeTertiary,
-                    shimmerWave: customThemeForShimmer.palette.themeSecondary,
-                  }}
-                />
-                <Shimmer
-                  width="75%"
-                  shimmerColors={{
-                    shimmer: customThemeForShimmer.palette.themeTertiary,
-                    shimmerWave: customThemeForShimmer.palette.themeSecondary,
-                  }}
-                />
-                <Shimmer
-                  width="50%"
-                  shimmerColors={{
-                    shimmer: customThemeForShimmer.palette.themeTertiary,
-                    shimmerWave: customThemeForShimmer.palette.themeSecondary,
-                  }}
-                />
+            {submitStatus === Status.Started && (
+              <div className={style.shimmerWrapper}>
+                <div className={wrapperClass}>
+                  <Shimmer
+                    shimmerColors={{
+                      shimmer: customThemeForShimmer.palette.themeTertiary,
+                      shimmerWave: customThemeForShimmer.palette.themeSecondary,
+                    }}
+                  />
+                  <Shimmer
+                    width="75%"
+                    shimmerColors={{
+                      shimmer: customThemeForShimmer.palette.themeTertiary,
+                      shimmerWave: customThemeForShimmer.palette.themeSecondary,
+                    }}
+                  />
+                  <Shimmer
+                    width="50%"
+                    shimmerColors={{
+                      shimmer: customThemeForShimmer.palette.themeTertiary,
+                      shimmerWave: customThemeForShimmer.palette.themeSecondary,
+                    }}
+                  />
+                </div>
               </div>
-            </div>
+            )}
+            {submitStatus === Status.Completed && (
+              <div>
+                <strong>Your parking token Id is: {parkingId}</strong>
+              </div>
+            )}
           </div>
         </div>
       </div>

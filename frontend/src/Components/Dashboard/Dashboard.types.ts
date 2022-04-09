@@ -50,6 +50,8 @@ export interface IParkVehicleState {
   ownerName: string;
   ownerAddress: string;
   parkingDuration: string;
+  submitStatus: Status;
+  parkingId: string | number;
 }
 export interface IAccountSettingProps {}
 export interface IAccountSettingState {
@@ -64,6 +66,9 @@ export interface IAccountSettingState {
 export interface IVehicleStatusProps {}
 export interface IVehicleStatusState {
   registrationNumber: string;
+  tokenNumber: string;
+  parkingData: VehicleStatusResponse[];
+  status: Status;
 }
 /**
  * Vehicle release state and props
@@ -114,6 +119,7 @@ export enum TextFieldStates {
   userName = "userName",
   newPassword = "newPassword",
   repeatPassword = "repeatPassword",
+  tokenNumber = "tokenNumber",
 }
 export enum VehicleClass {
   Bike = "Bike",
@@ -123,6 +129,17 @@ export enum VehicleClass {
   Bus = "Bus",
   Truck = "Truck",
   None = "None",
+}
+export interface VehicleStatusResponse {
+  area: string;
+  areaId: number;
+  city: string;
+  createdTime: string;
+  ownerAddress: string;
+  ownerName: string;
+  parkingDuration: string;
+  parkingRecordId: number;
+  registrationNumber: string;
 }
 export const textFieldStyles: Partial<ITextFieldStyles> = {
   fieldGroup: { width: 300 },
