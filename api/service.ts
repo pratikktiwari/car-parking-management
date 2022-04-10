@@ -49,7 +49,7 @@ const checkStatusService = (
   const parkingRecordId = Number(data.tokenNumber);
   if (true) {
     sqlConnection.query(
-      `SELECT PR.parkingRecordId, PR.areaId, PR.registrationNumber, PR.parkingDuration, PR.ownerName, PR.ownerAddress, PR.createdTime, SA.city,SA.area FROM parkingRecords PR LEFT JOIN serviceArea SA ON SA.areaId=PR.areaId LEFT JOIN parkingStatus PS ON PS.parkingRecordId=PR.parkingRecordId WHERE PR.parkingRecordId=? OR PR.registrationNumber=?`,
+      `SELECT PR.parkingRecordId, PR.areaId, PR.vehicleClass, PR.registrationNumber, PR.parkingDuration, PR.ownerName, PR.ownerAddress, PR.createdTime, SA.city, SA.area, PS.status FROM parkingRecords PR LEFT JOIN serviceArea SA ON SA.areaId=PR.areaId LEFT JOIN parkingStatus PS ON PS.parkingRecordId=PR.parkingRecordId WHERE PR.parkingRecordId=? OR PR.registrationNumber=? ORDER BY PR.parkingRecordId DESC`,
       [parkingRecordId, data.registrationNumber],
       (error, results, fields) => {
         if (error) {
@@ -59,6 +59,41 @@ const checkStatusService = (
         }
         console.log("Fetched resume data successfully");
         console.log(results);
+        return callBack(null, results);
+      }
+    );
+  } else {
+    console.log("No email in session");
+    return callBack(new Error());
+  }
+};
+
+const releaseVehicleService = (
+  data: CheckStatus,
+  req: Request<any>,
+  callBack: Function
+) => {
+  //@ts-ignore
+  const currentUserEmail = req.session.email;
+  const parkingRecordId = Number(data.tokenNumber);
+  if (true) {
+    sqlConnection.query(
+      `UPDATE parkingStatus SET status='free', parkingRecordId=1 WHERE parkingRecordId=?`,
+      [parkingRecordId],
+      (error, results, fields) => {
+        if (error) {
+          console.log("Error while releasing vehicle");
+          console.log(error);
+          return callBack(error);
+        }
+        console.log("Released vehicle");
+        console.log(results);
+        if (results.affectedRows > 0) {
+          return checkStatusService(data, req, callBack);
+        } else {
+          // return checkStatusService(data, req, callBack);
+          return callBack(null, { message: "Already released" });
+        }
         return callBack(null, results);
       }
     );
@@ -150,53 +185,9 @@ const parkVehicleService = (
     );
   }
 };
-
-// const getResumeDataFromEmailService = (
-//   data: undefined,
-//   req: Request<any>,
-//   callBack: Function
-// ) => {
-//   const currentUserEmail = req.session.email;
-//   if (currentUserEmail) {
-//     sqlConnection.query(
-//       `SELECT UR.modifiedDate, UR.resumeId, UR.resumeName FROM userResume AS UR INNER JOIN userInfo UI ON UI.userId=UR.userId WHERE UI.email=? LIMIT 5;`,
-//       [currentUserEmail],
-//       (error, results, fields) => {
-//         if (error) {
-//           return callBack(error);
-//         }
-//         return callBack(null, results);
-//       }
-//     );
-//   }
-// };
-// const getResumeDataFromResumeIdService = (
-//   data: GetResumeDataParams,
-//   req: Request<any>,
-//   callBack: Function
-// ) => {
-//   const currentUserEmail = req.session.email;
-//   if (currentUserEmail && !isNaN(data.resumeId)) {
-//     sqlConnection.query(
-//       `SELECT
-//         UR.modifiedDate,
-//         UR.resumeId,
-//         UR.resumeName,
-//         UR.resumeJSONData,
-//         UR.resumeJSONOrder,
-//         UR.resumeJSONTheme
-//         FROM userResume UR INNER JOIN userInfo UI
-//         ON UI.userId=UR.userId
-//         WHERE UI.email=? AND UR.resumeId=? LIMIT 5;`,
-//       [currentUserEmail, data.resumeId],
-//       (error, results, fields) => {
-//         if (error) {
-//           return callBack(error);
-//         }
-//         return callBack(null, results);
-//       }
-//     );
-//   }
-// };
-
-export { loginService, parkVehicleService, checkStatusService };
+export {
+  loginService,
+  parkVehicleService,
+  checkStatusService,
+  releaseVehicleService,
+};

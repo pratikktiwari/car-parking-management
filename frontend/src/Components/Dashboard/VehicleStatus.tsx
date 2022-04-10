@@ -7,9 +7,17 @@ import {
   Status,
   TextFieldStates,
   textFieldStyles,
+  VehicleClass,
   VehicleStatusResponse,
   wrapperClass,
 } from "./Dashboard.types";
+import bike1 from "../../images/bike1.png";
+// import parking from "../../images/parking.png";
+import car from "../../images/Tuning-Car-PNG-Photo.png";
+import suv from "../../images/suv.png";
+import bus from "../../images/bus.png";
+import truck from "../../images/truck.png";
+import pickUpTruck from "../../images/pickUpTruck.png";
 import { TextField } from "@fluentui/react/lib/TextField";
 import { PrimaryButton } from "@fluentui/react/lib/Button";
 import { Shimmer } from "@fluentui/react";
@@ -68,7 +76,7 @@ class VehicleStatus extends React.Component<
         .catch((error) => {
           this.setState({
             parkingData: [],
-            status: Status.Completed,
+            status: Status.Error,
           });
         });
     }
@@ -110,8 +118,57 @@ class VehicleStatus extends React.Component<
           <p className={style.recordTittle}>
             Parking details will appear here.
           </p>
-          {JSON.stringify(parkingData)}
+          {/* {JSON.stringify(parkingData)} */}
           <div className={style.detailsWrapper}>
+            {status === Status.Completed && (
+              <div>
+                {parkingData.length === 0 && <div>No results found</div>}
+                {parkingData.map((item: VehicleStatusResponse) => {
+                  return (
+                    <div className={style.card}>
+                      <div className={style.cardContent}>
+                        <div>
+                          Registration Number: {item.registrationNumber}
+                        </div>
+                        <div>Parking Token Number: {item.parkingRecordId}</div>
+                        <div>
+                          Parked Date: {new Date(item.createdTime).toString()}
+                        </div>
+                        <div>Duration: {item.parkingDuration} hours</div>
+                        <div>Owner Name: {item.ownerName}</div>
+                        <div>Owner Address: {item.ownerAddress}</div>
+                        <div>Vehicle Class: {item.vehicleClass}</div>
+                        <div>
+                          Area: {item.city} {item.area}
+                        </div>
+                        <div>Status: {item.status ? "Parked" : "Released"}</div>
+                      </div>
+
+                      <div className={style.parkingImage}>
+                        {item.vehicleClass === VehicleClass.Bike && (
+                          <img src={bike1} alt="bike" />
+                        )}
+                        {item.vehicleClass === VehicleClass.Car && (
+                          <img src={car} alt="car" />
+                        )}
+                        {item.vehicleClass === VehicleClass.SUV && (
+                          <img src={suv} alt="suv" />
+                        )}
+                        {item.vehicleClass === VehicleClass.Bus && (
+                          <img src={bus} alt="bus" />
+                        )}
+                        {item.vehicleClass === VehicleClass.Truck && (
+                          <img src={truck} alt="truck" />
+                        )}
+                        {item.vehicleClass === VehicleClass.PickupTruck && (
+                          <img src={pickUpTruck} alt="pick up truck" />
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
             {status === Status.Started && (
               <div className={style.shimmerWrapper}>
                 <div className={wrapperClass}>

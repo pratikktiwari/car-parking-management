@@ -3,6 +3,7 @@ import {
   checkStatusService,
   loginService,
   parkVehicleService,
+  releaseVehicleService,
 } from "./service";
 import { CheckStatus, ErrorConstants, ParkingData, UserData } from "./Types";
 
@@ -24,6 +25,21 @@ const parkVehicle = (req: Request<ParkingData>, res: Response) => {
 
   const body = req.body;
   parkVehicleService(body, req, (error: Error, results: any) => {
+    if (error) {
+      return res.status(500).json(ErrorConstants.DatabaseConnection);
+    }
+    return res.status(200).json({
+      success: 1,
+      data: results,
+    });
+  });
+};
+
+const releaseVehicle = (req: Request<ParkingData>, res: Response) => {
+  console.log("hello world");
+
+  const body = req.body;
+  releaseVehicleService(body, req, (error: Error, results: any) => {
     if (error) {
       return res.status(500).json(ErrorConstants.DatabaseConnection);
     }
@@ -56,4 +72,4 @@ const checkStatus = (req: Request<CheckStatus>, res: Response) => {
 // serviceAreas;
 // logout
 
-export { login, parkVehicle, checkStatus };
+export { login, parkVehicle, checkStatus, releaseVehicle };

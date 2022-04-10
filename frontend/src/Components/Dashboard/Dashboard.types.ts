@@ -76,6 +76,8 @@ export interface IVehicleStatusState {
 export interface IReleaseVehicleProps {}
 export interface IReleaseVehicleState {
   registrationNumber: string;
+  status: Status;
+  releaseData: VehicleStatusResponse[];
 }
 /**
  * Dashboard right state and props
@@ -140,6 +142,8 @@ export interface VehicleStatusResponse {
   parkingDuration: string;
   parkingRecordId: number;
   registrationNumber: string;
+  vehicleClass: string;
+  status: string;
 }
 export const textFieldStyles: Partial<ITextFieldStyles> = {
   fieldGroup: { width: 300 },
