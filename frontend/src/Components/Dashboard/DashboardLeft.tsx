@@ -8,11 +8,7 @@ import {
 import person from "../../images/person.png";
 
 import style from "./Dashboard.module.css";
-import {
-  ComponentTypes,
-  IDashboardLeftProps,
-  IDashboardLeftState,
-} from "./Dashboard.types";
+import { ComponentTypes, IDashboardLeftState } from "./Dashboard.types";
 import classNames from "classnames";
 import { withRouter } from "react-router-dom";
 class DashboardLeft extends React.Component<any, IDashboardLeftState> {

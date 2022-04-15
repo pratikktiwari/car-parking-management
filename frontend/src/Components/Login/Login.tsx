@@ -5,7 +5,7 @@ import { Checkbox } from "@fluentui/react/lib/Checkbox";
 import HeaderNav from "../Header/HeaderNav";
 import style from "./Login.module.css";
 import { PrimaryButton } from "@fluentui/react/lib/Button";
-import { ILoginProps, ILoginState } from "./Login.types";
+import { ILoginState } from "./Login.types";
 import classNames from "classnames";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
