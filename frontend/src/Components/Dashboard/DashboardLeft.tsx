@@ -14,20 +14,46 @@ import {
   IDashboardLeftState,
 } from "./Dashboard.types";
 import classNames from "classnames";
-class DashboardLeft extends React.Component<
-  IDashboardLeftProps,
-  IDashboardLeftState
-> {
+import { withRouter } from "react-router-dom";
+class DashboardLeft extends React.Component<any, IDashboardLeftState> {
+  state = {
+    userObject: null,
+  };
+  componentDidMount() {
+    const userObject = this.getUserObject();
+    this.setState({
+      userObject: userObject,
+    });
+  }
+  getUserObject = () => {
+    try {
+      const userObject = localStorage.getItem("userObject");
+      if (userObject) {
+        return JSON.parse(userObject);
+      } else {
+        return null;
+      }
+    } catch (error) {
+      return null;
+    }
+  };
+  handleLogout = () => {
+    localStorage.removeItem("userObject");
+    this.props.history.push("/login");
+  };
   render(): React.ReactNode {
+    const { userObject } = this.state;
     const personaDetails: IPersonaSharedProps = {
       imageUrl: person,
       imageInitials: "PT",
-      text: "Pratik Tiwari",
-      secondaryText: "Admin",
+      //@ts-ignore
+      text: userObject ? userObject.fullName : "Admin",
+      secondaryText: "Online",
       tertiaryText: "Available",
       optionalText: "Available",
       showSecondaryText: true,
     };
+
     const { setCurrentComponent, currentComponent } = this.props;
     return (
       <div className={style.left}>
@@ -81,7 +107,7 @@ class DashboardLeft extends React.Component<
           >
             Release a vehicle
           </div>
-          <div
+          {/* <div
             className={classNames(
               style.leftNavItem,
               currentComponent === ComponentTypes.AccountSetting
@@ -93,21 +119,9 @@ class DashboardLeft extends React.Component<
             }}
           >
             Account Setting
-          </div>
-          {/* <div
-            className={classNames(
-              style.leftNavItem,
-              currentComponent === ComponentTypes.PayUserBill
-                ? style.activeNavItem
-                : ""
-            )}
-            onClick={() => {
-              setCurrentComponent(ComponentTypes.PayUserBill);
-            }}
-          >
-            Pay a user bill
           </div> */}
-          <div
+
+          {/* <div
             className={classNames(
               style.leftNavItem,
               currentComponent === ComponentTypes.ServiceAreas
@@ -119,7 +133,7 @@ class DashboardLeft extends React.Component<
             }}
           >
             Service Areas
-          </div>
+          </div> */}
           <div
             className={classNames(
               style.leftNavItem,
@@ -134,9 +148,15 @@ class DashboardLeft extends React.Component<
             Parking Map
           </div>
         </div>
-        <div className={style.leftNavFooter}>Logout</div>
+        <div
+          className={style.leftNavFooter}
+          onClick={this.handleLogout}
+          style={{ cursor: "pointer" }}
+        >
+          Logout
+        </div>
       </div>
     );
   }
 }
-export default DashboardLeft;
+export default withRouter(DashboardLeft);

@@ -25,15 +25,15 @@ class HeaderNav extends React.Component<any> {
           <li className={this.getPath("/contact") ? style.active : ""}>
             Contact
           </li>
-          <li className={this.getPath("/pay") ? style.active : ""}>
+          {/* <li className={this.getPath("/pay") ? style.active : ""}>
             Pay Bills
-          </li>
+          </li> */}
           <li className={this.getPath("/login") ? style.active : ""}>
             <Link to="/login">Login</Link>
           </li>
-          <li className={this.getPath("/signup") ? style.active : ""}>
+          {/* <li className={this.getPath("/signup") ? style.active : ""}>
             Create Account
-          </li>
+          </li> */}
         </ul>
       </div>
     );

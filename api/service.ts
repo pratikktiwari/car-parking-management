@@ -18,17 +18,17 @@ const loginService = (
   //@ts-ignore
   const currentUserEmail = req.session.email;
   const isAdmin = String(data.isAdmin);
-  if (currentUserEmail) {
+  if (true) {
     sqlConnection.query(
-      `CALL SaveNewResume(?,?,?,?,?,?)`,
-      [currentUserEmail, data.userEmail, isAdmin, data.password],
+      `SELECT userEmail, fullName, isAdmin FROM user WHERE userEmail='${data.userEmail}' AND password='${data.userPassword}'`,
+      [],
       (error, results, fields) => {
         if (error) {
-          console.log("Error while saving resume");
+          console.log("Error while saving parking");
           console.log(error);
           return callBack(error);
         }
-        console.log("Saved resume to DB");
+        console.log("Saved parking to DB");
         console.log(results);
         return callBack(null, results);
       }
@@ -57,7 +57,7 @@ const checkStatusService = (
           console.log(error);
           return callBack(error);
         }
-        console.log("Fetched resume data successfully");
+        console.log("Fetched parking data successfully");
         console.log(results);
         return callBack(null, results);
       }
@@ -102,7 +102,36 @@ const releaseVehicleService = (
     return callBack(new Error());
   }
 };
+// #SELECT PR.parkingRecordId, PR.areaId, PR.vehicleClass, PR.registrationNumber, PR.parkingDuration, PR.ownerName, PR.ownerAddress, PR.createdTime, SA.city, SA.area, PS.status FROM parkingRecords PR LEFT JOIN serviceArea SA ON SA.areaId=PR.areaId LEFT JOIN parkingStatus PS ON PS.parkingRecordId=PR.parkingRecordId ORDER BY PR.parkingRecordId DESC;
 
+// SELECT PR.parkingRecordId, PR.areaId, PR.vehicleClass, PR.registrationNumber, PR.parkingDuration, PR.ownerName, PR.ownerAddress, PR.createdTime, SA.city, SA.area, PS.status FROM parkingStatus PS INNER JOIN parkingRecords PR ON PR.parkingRecordId=PS.parkingRecordId INNER JOIN serviceArea SA ON SA.areaId=PS.areaId;
+const getParkingDataService = (
+  data: CheckStatus,
+  req: Request<any>,
+  callBack: Function
+) => {
+  //@ts-ignore
+  const currentUserEmail = req.session.email;
+  if (true) {
+    sqlConnection.query(
+      `SELECT PR.parkingRecordId, PR.areaId, PR.vehicleClass, PR.registrationNumber, PR.parkingDuration, PR.ownerName, PR.ownerAddress, PR.createdTime, SA.city, SA.area, PS.status FROM parkingStatus PS INNER JOIN parkingRecords PR ON PR.parkingRecordId=PS.parkingRecordId INNER JOIN serviceArea SA ON SA.areaId=PS.areaId;`,
+      [],
+      (error, results, fields) => {
+        if (error) {
+          console.log("Error while fetching vehicle data");
+          console.log(error);
+          return callBack(error);
+        }
+        console.log("Fetched vehicle data successfully");
+        console.log(results);
+        return callBack(null, results);
+      }
+    );
+  } else {
+    console.log("No email in session");
+    return callBack(new Error());
+  }
+};
 const parkVehicleService = (
   data: ParkingData,
   req: Request<any>,
@@ -190,4 +219,5 @@ export {
   parkVehicleService,
   checkStatusService,
   releaseVehicleService,
+  getParkingDataService,
 };

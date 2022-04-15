@@ -16,6 +16,9 @@ export interface IParkingData {
   parkingData: ParkingCity[];
   status: Status;
 }
+export interface IParkingMapState {
+  parkingData: IParkingData;
+}
 
 export interface ParkingCity {
   city: string;
@@ -101,7 +104,9 @@ export interface IDashboardLeftProps {
   setCurrentComponent: (componentName: ComponentTypes) => void;
   currentComponent: ComponentTypes;
 }
-export interface IDashboardLeftState {}
+export interface IDashboardLeftState {
+  userObject: any;
+}
 
 export enum ComponentTypes {
   ParkNewVehicle = "ParkNewVehicle",
@@ -131,6 +136,7 @@ export enum VehicleClass {
   Bus = "Bus",
   Truck = "Truck",
   None = "None",
+  NA = "NA",
 }
 export interface VehicleStatusResponse {
   area: string;

@@ -3,9 +3,30 @@ import DashboardLeft from "./DashboardLeft";
 import style from "./Dashboard.module.css";
 import DashboardRight from "./DashboardRight";
 import { ComponentTypes } from "./Dashboard.types";
-class Dashboard extends React.Component {
-  state = {
-    currentComponent: ComponentTypes.ParkNewVehicle,
+import { withRouter } from "react-router-dom";
+class Dashboard extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      currentComponent: ComponentTypes.ParkNewVehicle,
+      userObject: this.getUserObject(),
+    };
+
+    if (!this.state.userObject) {
+      this.props.history.push("/login");
+    }
+  }
+  getUserObject = () => {
+    try {
+      const userObject = localStorage.getItem("userObject");
+      if (userObject) {
+        return JSON.parse(userObject);
+      } else {
+        return null;
+      }
+    } catch (error) {
+      return null;
+    }
   };
   setCurrentComponent = (componentName: ComponentTypes): void => {
     if (this.state.currentComponent !== componentName) {
@@ -27,4 +48,4 @@ class Dashboard extends React.Component {
     );
   }
 }
-export default Dashboard;
+export default withRouter(Dashboard);

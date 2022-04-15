@@ -1,7 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "API for resume builder",
+  "description": "API for parking management",
   "main": "app.js",
   "scripts": {
     "test": "node app.ts",

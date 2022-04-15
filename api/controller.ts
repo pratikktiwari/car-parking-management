@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   checkStatusService,
+  getParkingDataService,
   loginService,
   parkVehicleService,
   releaseVehicleService,
@@ -25,6 +26,21 @@ const parkVehicle = (req: Request<ParkingData>, res: Response) => {
 
   const body = req.body;
   parkVehicleService(body, req, (error: Error, results: any) => {
+    if (error) {
+      return res.status(500).json(ErrorConstants.DatabaseConnection);
+    }
+    return res.status(200).json({
+      success: 1,
+      data: results,
+    });
+  });
+};
+
+const getParkingData = (req: Request<ParkingData>, res: Response) => {
+  console.log("hello world");
+
+  const body = req.body;
+  getParkingDataService(body, req, (error: Error, results: any) => {
     if (error) {
       return res.status(500).json(ErrorConstants.DatabaseConnection);
     }
@@ -72,4 +88,4 @@ const checkStatus = (req: Request<CheckStatus>, res: Response) => {
 // serviceAreas;
 // logout
 
-export { login, parkVehicle, checkStatus, releaseVehicle };
+export { login, parkVehicle, checkStatus, releaseVehicle, getParkingData };

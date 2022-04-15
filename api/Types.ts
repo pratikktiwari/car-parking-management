@@ -1,6 +1,6 @@
 export interface UserData {
   userEmail: string;
-  password: string;
+  userPassword: string;
   isAdmin: number;
 }
 

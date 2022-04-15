@@ -7,11 +7,16 @@ import style from "./Login.module.css";
 import { PrimaryButton } from "@fluentui/react/lib/Button";
 import { ILoginProps, ILoginState } from "./Login.types";
 import classNames from "classnames";
-class Login extends React.Component<ILoginProps, ILoginState> {
+import axios from "axios";
+import { withRouter } from "react-router-dom";
+class Login extends React.Component<any, ILoginState> {
   state = {
     isAdmin: false,
-    userEmail: "",
-    userPassword: "",
+    userEmail: "admin@gmail.com",
+    userPassword: "test1234",
+    emailError: "",
+    passwordError: "",
+    loginError: "",
   };
   handleCheckboxChange = (
     ev?: React.FormEvent<HTMLElement | HTMLInputElement>,
@@ -26,9 +31,17 @@ class Login extends React.Component<ILoginProps, ILoginState> {
     newValue?: string | undefined
   ) => {
     if (typeof newValue !== "undefined") {
-      this.setState({
-        userEmail: newValue,
-      });
+      if (!this.validateEmail(newValue)) {
+        this.setState({
+          emailError: "Please enter a valid email",
+          userEmail: newValue,
+        });
+      } else {
+        this.setState({
+          userEmail: newValue,
+          emailError: "",
+        });
+      }
     }
   };
   handlePasswordChange = (
@@ -36,13 +49,64 @@ class Login extends React.Component<ILoginProps, ILoginState> {
     newValue?: string | undefined
   ) => {
     if (typeof newValue !== "undefined") {
-      this.setState({
-        userPassword: newValue,
-      });
+      if (!newValue.length) {
+        this.setState({
+          userPassword: newValue,
+          passwordError: "Password cannot be empty",
+        });
+      } else {
+        this.setState({
+          userPassword: newValue,
+          passwordError: "",
+        });
+      }
     }
   };
+  handleLogin = () => {
+    const { emailError, passwordError, userEmail, userPassword } = this.state;
+    if (!emailError.length && !passwordError.length) {
+      axios
+        .post("/api/login", {
+          userEmail: userEmail,
+          userPassword: userPassword,
+        })
+        .then((data) => {
+          console.log(data.data.data);
+          const res: ILoginState[] = data.data.data;
+          if (res.length) {
+            localStorage.setItem("userObject", JSON.stringify(res[0]));
+            this.props.history.push("/dashboard");
+          } else {
+            this.setState({
+              loginError:
+                "Wrong user email or password combination. Please try again.",
+            });
+          }
+        })
+        .catch((error) => {
+          console.log("error: " + error);
+          this.setState({
+            loginError: "Some error occured at the server level",
+          });
+        });
+    }
+  };
+  validateEmail = (email: string) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
   render(): React.ReactNode {
-    const { isAdmin, userEmail, userPassword } = this.state;
+    const {
+      isAdmin,
+      userEmail,
+      userPassword,
+      emailError,
+      passwordError,
+      loginError,
+    } = this.state;
     return (
       <div>
         <HeaderNav />
@@ -55,7 +119,7 @@ class Login extends React.Component<ILoginProps, ILoginState> {
                 <Label htmlFor="userEmail">Email</Label>
                 <TextField
                   id="userEmail"
-                  errorMessage=""
+                  errorMessage={emailError}
                   name="userEmail"
                   value={userEmail}
                   onChange={this.handleEmailChange}
@@ -66,6 +130,7 @@ class Login extends React.Component<ILoginProps, ILoginState> {
                   label="Password"
                   type="password"
                   canRevealPassword
+                  errorMessage={passwordError}
                   revealPasswordAriaLabel="Show password"
                   id="userPassword"
                   onChange={this.handlePasswordChange}
@@ -88,7 +153,7 @@ class Login extends React.Component<ILoginProps, ILoginState> {
               >
                 <PrimaryButton
                   text="Login"
-                  onClick={() => {}}
+                  onClick={this.handleLogin}
                   allowDisabledFocus
                   disabled={false}
                   checked={false}
@@ -98,6 +163,15 @@ class Login extends React.Component<ILoginProps, ILoginState> {
                   }}
                 />
               </div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontStyle: "italic",
+                  textAlign: "center",
+                }}
+              >
+                {loginError}
+              </div>
             </div>
           </div>
         </div>
@@ -106,4 +180,4 @@ class Login extends React.Component<ILoginProps, ILoginState> {
   }
 }
 
-export default Login;
+export default withRouter(Login);

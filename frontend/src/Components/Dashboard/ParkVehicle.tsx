@@ -162,7 +162,7 @@ class ParkVehicle extends React.Component<
       { key: "jalandhar", text: "Jalandhar" },
       { key: "chandigarh", text: "Chandigarh" },
       { key: "amritsar", text: "Amritsar" },
-      { key: "kathua", text: "Kathua", disabled: true },
+      // { key: "kathua", text: "Kathua", disabled: true },
       { key: "divider_1", text: "-", itemType: DropdownMenuItemType.Divider },
       {
         key: "jharkhandHeaders",
@@ -172,14 +172,27 @@ class ParkVehicle extends React.Component<
       { key: "ranchi", text: "Ranchi" },
       // { key: "devghar", text: "Devghar" },
     ];
-    const parkingJalandharList = [
-      { key: "jalandhar_lpu", text: "LPU Mall" },
-      { key: "jalandhar_law_gate", text: "LPU Law Gate" },
-      { key: "chandigarh_1", text: "Elante Mall" },
-      { key: "amritsar_1", text: "Golden Temple Parking Area" },
-      { key: "ranchi_1", text: "Lalpur" },
-      { key: "ranchi_2", text: "SAIL Township" },
-    ];
+    // const parkingJalandharList = [
+    //   { key: "jalandhar_lpu", text: "LPU Mall" },
+    //   { key: "jalandhar_law_gate", text: "LPU Law Gate" },
+    //   { key: "chandigarh_1", text: "Elante Mall" },
+    //   { key: "amritsar_1", text: "Golden Temple Parking Area" },
+    //   { key: "ranchi_1", text: "Lalpur" },
+    //   { key: "ranchi_2", text: "SAIL Township" },
+    // ];
+
+    const parkingList = {
+      Jalandhar: [
+        { key: "jalandhar_lpu", text: "LPU Mall" },
+        { key: "jalandhar_law_gate", text: "LPU Law Gate" },
+      ],
+      Chandigarh: [{ key: "chandigarh_1", text: "Elante Mall" }],
+      Amritsar: [{ key: "amritsar_1", text: "Golden Temple Parking Area" }],
+      Ranchi: [
+        { key: "ranchi_1", text: "Lalpur" },
+        { key: "ranchi_2", text: "SAIL Township" },
+      ],
+    };
     const vehicleClasses = [
       { key: "bike", text: "Bike" },
       { key: "car", text: "Car" },
@@ -223,7 +236,10 @@ class ParkVehicle extends React.Component<
               }
               onChange={this.onParkingPlaceChange}
               placeholder="Select a parking area"
-              options={parkingJalandharList}
+              options={
+                //@ts-ignore
+                selectedCity ? parkingList[selectedCity.text] : undefined
+              }
               styles={dropdownStyles}
             />
           </div>
@@ -319,7 +335,13 @@ class ParkVehicle extends React.Component<
             )}
             {submitStatus === Status.Completed && (
               <div>
-                <strong>Your parking token Id is: {parkingId}</strong>
+                <strong>
+                  {parkingId ? (
+                    <span>Your parking token Id is: {parkingId}</span>
+                  ) : (
+                    <span>No slots available!</span>
+                  )}
+                </strong>
               </div>
             )}
           </div>
