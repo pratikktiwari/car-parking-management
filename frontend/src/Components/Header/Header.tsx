@@ -20,7 +20,6 @@ class Header extends React.Component {
           </p>
           <div className={style.buttonContainer}>
             <button>Admin Login</button>
-            <button>Pay Bill</button>
           </div>
         </div>
         <div className={style.headerBottom}>
