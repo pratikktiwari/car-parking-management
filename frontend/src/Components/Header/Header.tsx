@@ -4,6 +4,7 @@ import { IoCall } from "react-icons/io5";
 import { IoMailSharp } from "react-icons/io5";
 import { RiHistoryLine } from "react-icons/ri";
 import HeaderNav from "./HeaderNav";
+import { Link } from "react-router-dom";
 
 class Header extends React.Component {
   render() {
@@ -19,7 +20,9 @@ class Header extends React.Component {
             molestiae quos praesentium reprehenderit?
           </p>
           <div className={style.buttonContainer}>
-            <button>Admin Login</button>
+            <Link to="/login">
+              <button>Admin Login</button>
+            </Link>
           </div>
         </div>
         <div className={style.headerBottom}>
