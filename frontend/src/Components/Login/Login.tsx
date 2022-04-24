@@ -1,7 +1,7 @@
 import React, { FormEvent } from "react";
 import { Label } from "@fluentui/react/lib/Label";
 import { TextField } from "@fluentui/react/lib/TextField";
-import { Checkbox } from "@fluentui/react/lib/Checkbox";
+// import { Checkbox } from "@fluentui/react/lib/Checkbox";
 import HeaderNav from "../Header/HeaderNav";
 import style from "./Login.module.css";
 import { PrimaryButton } from "@fluentui/react/lib/Button";
@@ -106,7 +106,7 @@ class Login extends React.Component<any, ILoginState> {
   };
   render(): React.ReactNode {
     const {
-      isAdmin,
+      // isAdmin,
       userEmail,
       userPassword,
       emailError,
@@ -144,13 +144,13 @@ class Login extends React.Component<any, ILoginState> {
                   value={userPassword}
                 />
               </div>
-              <div>
+              {/* <div>
                 <Checkbox
                   label="Check if you are an admin"
                   checked={isAdmin}
                   onChange={this.handleCheckboxChange}
                 />
-              </div>
+              </div> */}
               <div
                 className={classNames(
                   style.singleInputContainer,
