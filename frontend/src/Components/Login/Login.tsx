@@ -10,14 +10,20 @@ import classNames from "classnames";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 class Login extends React.Component<any, ILoginState> {
-  state = {
-    isAdmin: false,
-    userEmail: "admin@gmail.com",
-    userPassword: "test1234",
-    emailError: "",
-    passwordError: "",
-    loginError: "",
-  };
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      isAdmin: false,
+      userEmail: "admin@gmail.com",
+      userPassword: "test1234",
+      emailError: "",
+      passwordError: "",
+      loginError: "",
+    };
+    if (localStorage.getItem("userObject")) {
+      this.props.history.push("/dashboard");
+    }
+  }
   handleCheckboxChange = (
     ev?: React.FormEvent<HTMLElement | HTMLInputElement>,
     checked?: boolean
