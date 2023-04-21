@@ -94,14 +94,16 @@ class HomeSection extends React.Component {
           <div className={style.leftSection}>
             <h1>Happy customers</h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Veritatis cum facere quis eaque tenetur architecto perferendis
-              consectetur, ut id quae necessitatibus adipisci modi eos
-              perspiciatis qui, tempore pariatur ipsa expedita. Lorem ipsum
-              dolor sit amet consectetur, adipisicing elit. Veritatis cum facere
-              quis eaque tenetur architecto perferendis consectetur, ut id quae
-              necessitatibus adipisci modi eos perspiciatis qui, tempore
-              pariatur ipsa expedita.
+            
+              
+              
+              
+              
+              
+              
+              
+              
+              
             </p>
             <p>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit.
